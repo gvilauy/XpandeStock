@@ -233,6 +233,17 @@ public interface I_Z_StkTransferLin
 	  */
 	public String getUUID();
 
+    /** Column name Z_StkTransfer_ID */
+    public static final String COLUMNNAME_Z_StkTransfer_ID = "Z_StkTransfer_ID";
+
+	/** Set Z_StkTransfer ID	  */
+	public void setZ_StkTransfer_ID (int Z_StkTransfer_ID);
+
+	/** Get Z_StkTransfer ID	  */
+	public int getZ_StkTransfer_ID();
+
+	public I_Z_StkTransfer getZ_StkTransfer() throws RuntimeException;
+
     /** Column name Z_StkTransferLin_ID */
     public static final String COLUMNNAME_Z_StkTransferLin_ID = "Z_StkTransferLin_ID";
 

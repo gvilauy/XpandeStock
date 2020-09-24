@@ -46,6 +46,7 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
 			setMovementQty (Env.ZERO);
 			setM_Product_ID (0);
 			setQtyEntered (Env.ZERO);
+			setZ_StkTransfer_ID (0);
 			setZ_StkTransferLin_ID (0);
         } */
     }
@@ -279,6 +280,31 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
 	public String getUUID () 
 	{
 		return (String)get_Value(COLUMNNAME_UUID);
+	}
+
+	public I_Z_StkTransfer getZ_StkTransfer() throws RuntimeException
+    {
+		return (I_Z_StkTransfer)MTable.get(getCtx(), I_Z_StkTransfer.Table_Name)
+			.getPO(getZ_StkTransfer_ID(), get_TrxName());	}
+
+	/** Set Z_StkTransfer ID.
+		@param Z_StkTransfer_ID Z_StkTransfer ID	  */
+	public void setZ_StkTransfer_ID (int Z_StkTransfer_ID)
+	{
+		if (Z_StkTransfer_ID < 1) 
+			set_Value (COLUMNNAME_Z_StkTransfer_ID, null);
+		else 
+			set_Value (COLUMNNAME_Z_StkTransfer_ID, Integer.valueOf(Z_StkTransfer_ID));
+	}
+
+	/** Get Z_StkTransfer ID.
+		@return Z_StkTransfer ID	  */
+	public int getZ_StkTransfer_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Z_StkTransfer_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	/** Set Z_StkTransferLin ID.
