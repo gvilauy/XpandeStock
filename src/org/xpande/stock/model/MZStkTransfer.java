@@ -242,7 +242,7 @@ public class MZStkTransfer extends X_Z_StkTransfer implements DocAction, DocOpti
 		setDefiniteDocumentNo();
 
 		setProcessed(true);
-		setDocAction(DOCACTION_Close);
+		setDocAction(DOCACTION_None);
 		return DocAction.STATUS_Completed;
 	}	//	completeIt
 	
@@ -318,11 +318,23 @@ public class MZStkTransfer extends X_Z_StkTransfer implements DocAction, DocOpti
 	 */
 	public boolean reActivateIt()
 	{
-		log.info("reActivateIt - " + toString());
-		setProcessed(false);
-		if (reverseCorrectIt())
-			return true;
-		return false;
+		// Before reActivate
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this,ModelValidator.TIMING_BEFORE_REACTIVATE);
+		if (m_processMsg != null)
+			return false;
+
+
+
+		// After reActivate
+		m_processMsg = ModelValidationEngine.get().fireDocValidate(this,ModelValidator.TIMING_AFTER_REACTIVATE);
+		if (m_processMsg != null)
+			return false;
+
+		this.setProcessed(false);
+		this.setDocStatus(DOCSTATUS_InProgress);
+		this.setDocAction(DOCACTION_Complete);
+
+		return true;
 	}	//	reActivateIt
 	
 	
