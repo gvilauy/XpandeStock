@@ -32,7 +32,7 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200924L;
+	private static final long serialVersionUID = 20200926L;
 
     /** Standard Constructor */
     public X_Z_StkTransferLin (Properties ctx, int Z_StkTransferLin_ID, String trxName)
@@ -41,8 +41,6 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
       /** if (Z_StkTransferLin_ID == 0)
         {
 			setC_UOM_ID (0);
-			setM_Locator_ID (0);
-			setM_LocatorTo_ID (0);
 			setMovementQty (Env.ZERO);
 			setM_Product_ID (0);
 			setQtyEntered (Env.ZERO);
@@ -124,62 +122,6 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
 		return ii.intValue();
 	}
 
-	public I_M_Locator getM_Locator() throws RuntimeException
-    {
-		return (I_M_Locator)MTable.get(getCtx(), I_M_Locator.Table_Name)
-			.getPO(getM_Locator_ID(), get_TrxName());	}
-
-	/** Set Locator.
-		@param M_Locator_ID 
-		Warehouse Locator
-	  */
-	public void setM_Locator_ID (int M_Locator_ID)
-	{
-		if (M_Locator_ID < 1) 
-			set_Value (COLUMNNAME_M_Locator_ID, null);
-		else 
-			set_Value (COLUMNNAME_M_Locator_ID, Integer.valueOf(M_Locator_ID));
-	}
-
-	/** Get Locator.
-		@return Warehouse Locator
-	  */
-	public int getM_Locator_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_M_Locator_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	public I_M_Locator getM_LocatorTo() throws RuntimeException
-    {
-		return (I_M_Locator)MTable.get(getCtx(), I_M_Locator.Table_Name)
-			.getPO(getM_LocatorTo_ID(), get_TrxName());	}
-
-	/** Set Locator To.
-		@param M_LocatorTo_ID 
-		Location inventory is moved to
-	  */
-	public void setM_LocatorTo_ID (int M_LocatorTo_ID)
-	{
-		if (M_LocatorTo_ID < 1) 
-			set_Value (COLUMNNAME_M_LocatorTo_ID, null);
-		else 
-			set_Value (COLUMNNAME_M_LocatorTo_ID, Integer.valueOf(M_LocatorTo_ID));
-	}
-
-	/** Get Locator To.
-		@return Location inventory is moved to
-	  */
-	public int getM_LocatorTo_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_M_LocatorTo_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	/** Set Movement Quantity.
 		@param MovementQty 
 		Quantity of a product moved.
@@ -226,6 +168,26 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Price.
+		@param PriceEntered 
+		Price Entered - the price based on the selected/base UoM
+	  */
+	public void setPriceEntered (BigDecimal PriceEntered)
+	{
+		set_Value (COLUMNNAME_PriceEntered, PriceEntered);
+	}
+
+	/** Get Price.
+		@return Price Entered - the price based on the selected/base UoM
+	  */
+	public BigDecimal getPriceEntered () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_PriceEntered);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set Quantity.

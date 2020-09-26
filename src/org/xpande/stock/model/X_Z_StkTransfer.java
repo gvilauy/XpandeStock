@@ -31,7 +31,7 @@ public class X_Z_StkTransfer extends PO implements I_Z_StkTransfer, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200924L;
+	private static final long serialVersionUID = 20200926L;
 
     /** Standard Constructor */
     public X_Z_StkTransfer (Properties ctx, int Z_StkTransfer_ID, String trxName)
@@ -49,6 +49,7 @@ public class X_Z_StkTransfer extends PO implements I_Z_StkTransfer, I_Persistent
 			setDocumentNo (null);
 			setIsApproved (false);
 // N
+			setM_LocatorTo_ID (0);
 			setM_Warehouse_ID (0);
 			setM_WarehouseSource_ID (0);
 			setProcessed (false);
@@ -280,6 +281,62 @@ public class X_Z_StkTransfer extends PO implements I_Z_StkTransfer, I_Persistent
 			return "Y".equals(oo);
 		}
 		return false;
+	}
+
+	public I_M_Locator getM_Locator() throws RuntimeException
+    {
+		return (I_M_Locator)MTable.get(getCtx(), I_M_Locator.Table_Name)
+			.getPO(getM_Locator_ID(), get_TrxName());	}
+
+	/** Set Locator.
+		@param M_Locator_ID 
+		Warehouse Locator
+	  */
+	public void setM_Locator_ID (int M_Locator_ID)
+	{
+		if (M_Locator_ID < 1) 
+			set_Value (COLUMNNAME_M_Locator_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_Locator_ID, Integer.valueOf(M_Locator_ID));
+	}
+
+	/** Get Locator.
+		@return Warehouse Locator
+	  */
+	public int getM_Locator_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_Locator_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_M_Locator getM_LocatorTo() throws RuntimeException
+    {
+		return (I_M_Locator)MTable.get(getCtx(), I_M_Locator.Table_Name)
+			.getPO(getM_LocatorTo_ID(), get_TrxName());	}
+
+	/** Set Locator To.
+		@param M_LocatorTo_ID 
+		Location inventory is moved to
+	  */
+	public void setM_LocatorTo_ID (int M_LocatorTo_ID)
+	{
+		if (M_LocatorTo_ID < 1) 
+			set_Value (COLUMNNAME_M_LocatorTo_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_LocatorTo_ID, Integer.valueOf(M_LocatorTo_ID));
+	}
+
+	/** Get Locator To.
+		@return Location inventory is moved to
+	  */
+	public int getM_LocatorTo_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_LocatorTo_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	public I_M_Warehouse getM_Warehouse() throws RuntimeException
