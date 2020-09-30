@@ -22,6 +22,10 @@ public class MZStkTransferLin extends X_Z_StkTransferLin {
     @Override
     protected boolean beforeSave(boolean newRecord) {
 
+        // Me aseguro la organización del cabezal
+        MZStkTransfer stkTransfer = (MZStkTransfer) this.getZ_StkTransfer();
+        this.setAD_Org_ID(stkTransfer.getAD_Org_ID());
+
         if ((this.getQtyEntered() == null) || (this.getQtyEntered().compareTo(Env.ZERO) <= 0)){
             log.saveError("ATENCIÓN", "Debe indicar cantidad a consumir mayor a cero.");
             return false;
