@@ -32,7 +32,7 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200926L;
+	private static final long serialVersionUID = 20201005L;
 
     /** Standard Constructor */
     public X_Z_StkTransferLin (Properties ctx, int Z_StkTransferLin_ID, String trxName)
@@ -242,6 +242,23 @@ public class X_Z_StkTransferLin extends PO implements I_Z_StkTransferLin, I_Pers
 	public String getUUID () 
 	{
 		return (String)get_Value(COLUMNNAME_UUID);
+	}
+
+	/** Set Value To.
+		@param Value2 
+		Value To
+	  */
+	public void setValue2 (String Value2)
+	{
+		set_Value (COLUMNNAME_Value2, Value2);
+	}
+
+	/** Get Value To.
+		@return Value To
+	  */
+	public String getValue2 () 
+	{
+		return (String)get_Value(COLUMNNAME_Value2);
 	}
 
 	public I_Z_StkTransfer getZ_StkTransfer() throws RuntimeException

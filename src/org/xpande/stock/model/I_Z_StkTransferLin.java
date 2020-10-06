@@ -216,6 +216,19 @@ public interface I_Z_StkTransferLin
 	  */
 	public String getUUID();
 
+    /** Column name Value2 */
+    public static final String COLUMNNAME_Value2 = "Value2";
+
+	/** Set Value To.
+	  * Value To
+	  */
+	public void setValue2 (String Value2);
+
+	/** Get Value To.
+	  * Value To
+	  */
+	public String getValue2();
+
     /** Column name Z_StkTransfer_ID */
     public static final String COLUMNNAME_Z_StkTransfer_ID = "Z_StkTransfer_ID";
 
