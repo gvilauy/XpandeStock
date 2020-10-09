@@ -20,6 +20,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.process.DocAction;
@@ -230,7 +231,15 @@ public class MZStkTransfer extends X_Z_StkTransfer implements DocAction, DocOpti
 			approveIt();
 		log.info(toString());
 		//
-		
+
+		// Valido que el documento tenga lineas antes de completar.
+		List<MZStkTransferLin> transferLinList = this.getLines();
+		if (transferLinList.size() <= 0){
+			m_processMsg = "El documento no tiene lineas. No es posible completarlo.";
+			return DocAction.STATUS_Invalid;
+		}
+
+
 		//	User Validation
 		String valid = ModelValidationEngine.get().fireDocValidate(this, ModelValidator.TIMING_AFTER_COMPLETE);
 		if (valid != null)
@@ -401,4 +410,20 @@ public class MZStkTransfer extends X_Z_StkTransfer implements DocAction, DocOpti
         .append(getSummary()).append("]");
       return sb.toString();
     }
+
+
+	/***
+	 * Obtiene y retorna lineas de este documento.
+	 * Xpande. Created by Gabriel Vila on 10/9/20.
+	 * @return
+	 */
+	public List<MZStkTransferLin> getLines(){
+
+		String whereClause = X_Z_StkTransferLin.COLUMNNAME_Z_StkTransfer_ID + " =" + this.get_ID();
+
+		List<MZStkTransferLin> lines = new Query(getCtx(), I_Z_StkTransferLin.Table_Name, whereClause, get_TrxName()).list();
+
+		return lines;
+	}
+
 }
