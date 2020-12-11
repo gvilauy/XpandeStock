@@ -124,7 +124,7 @@ public class CargaInventarioFile extends SvrProcess {
         try{
 
             // Formato de importación de archivo de interface para carga de medios de pago
-            ImpFormat formatoImpArchivo = ImpFormat.load("Financial_CargaPagoCobro");
+            ImpFormat formatoImpArchivo = ImpFormat.load("Stock_CargaInventario");
 
             // Abro archivo
             File archivo = new File(this.inventory.get_ValueAsString("FileName").trim());
