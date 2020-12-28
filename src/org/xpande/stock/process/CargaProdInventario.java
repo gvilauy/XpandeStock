@@ -32,11 +32,16 @@ public class CargaProdInventario extends SvrProcess {
     @Override
     protected String doIt() throws Exception {
 
-        String sql = "";
+        String sql, action;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try{
+
+            // Elimino lineas anteriores del inventario
+            action = " delete from m_inventoryline where m_inventory_id =" + this.inventory.get_ID();
+            DB.executeUpdateEx(action, get_TrxName());
+
             MWarehouse warehouse = (MWarehouse) this.inventory.getM_Warehouse();
             MLocator locator = MLocator.getDefault(warehouse);
 
@@ -104,7 +109,8 @@ public class CargaProdInventario extends SvrProcess {
                 BigDecimal qtyOnHand = DB.getSQLValueBDEx(null, sql);
                 if (qtyOnHand == null) qtyOnHand = Env.ZERO;
 
-                inventoryLine.setQtyCount(qtyOnHand);
+                //inventoryLine.setQtyCount(qtyOnHand);
+                inventoryLine.setQtyCount(Env.ZERO);
                 inventoryLine.setQtyBook(qtyOnHand);
                 inventoryLine.saveEx();
             }
