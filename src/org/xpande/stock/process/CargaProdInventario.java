@@ -98,6 +98,7 @@ public class CargaProdInventario extends SvrProcess {
                 // Genero linea de inventario para esta linea de interface
                 MInventoryLine inventoryLine = new MInventoryLine(getCtx(), 0, get_TrxName());
                 inventoryLine.setM_Inventory_ID(this.inventory.get_ID());
+                inventoryLine.setAD_Org_ID(this.inventory.getAD_Org_ID());
                 inventoryLine.setM_Product_ID(rs.getInt("m_product_id"));
                 inventoryLine.setM_AttributeSetInstance_ID(0);
                 inventoryLine.setM_Locator_ID(locator.get_ID());
