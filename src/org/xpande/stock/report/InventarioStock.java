@@ -163,6 +163,7 @@ public class InventarioStock extends SvrProcess {
                 fieldStartDate = "'" + this.startDate + "'";
             }
 
+
             sql = " select t.ad_client_id, t.ad_org_id, l.m_warehouse_id, t.m_locator_id, " +
                     "p.m_product_category_id, t.m_product_id, p.c_uom_id, " +
                     this.getAD_User_ID() + "," + fieldStartDate + ", '" + this.endDate + "', '" +
