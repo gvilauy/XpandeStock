@@ -23,6 +23,9 @@ public class InventarioStock extends SvrProcess {
     private Timestamp endDate = null;
     private int mProductID = -1;
     private int mWarehouseID = -1;
+    private int zLineaProdID = -1;
+    private int zFamiliaProdID = -1;
+    private int zSubfamiliaProdID = -1;
     private int mLocatorID = -1;
     private int mProductCategoryID = -1;
     private boolean hideQtyZero = false;
@@ -61,6 +64,21 @@ public class InventarioStock extends SvrProcess {
                 else if (name.equalsIgnoreCase("M_Locator_ID")){
                     if(para[i].getParameter()!=null){
                         this.mLocatorID = ((BigDecimal)para[i].getParameter()).intValueExact();
+                    }
+                }
+                else if (name.equalsIgnoreCase("Z_LineaProd_ID")){
+                    if(para[i].getParameter()!=null){
+                        this.zLineaProdID = ((BigDecimal)para[i].getParameter()).intValueExact();
+                    }
+                }
+                else if (name.equalsIgnoreCase("Z_FamiliaProd_ID")){
+                    if(para[i].getParameter()!=null){
+                        this.zFamiliaProdID = ((BigDecimal)para[i].getParameter()).intValueExact();
+                    }
+                }
+                else if (name.equalsIgnoreCase("Z_SubfamiliaProd_ID")){
+                    if(para[i].getParameter()!=null){
+                        this.zSubfamiliaProdID = ((BigDecimal)para[i].getParameter()).intValueExact();
                     }
                 }
                 else if (name.equalsIgnoreCase("HideQtyZero")){
@@ -126,6 +144,7 @@ public class InventarioStock extends SvrProcess {
         try{
 
             action = " insert into " + TABLA_REPORTE + " (ad_client_id, ad_org_id,  m_warehouse_id, m_locator_id, " +
+                    "z_lineaprod_id, z_familiaprod_id, z_subfamiliaprod_id, " +
                     "m_product_category_id, m_product_id, c_uom_id, ad_user_id, startdate, enddate, hideqtyzero, qtyonhand) ";
 
             // Armo condiciones según filtros
@@ -149,6 +168,15 @@ public class InventarioStock extends SvrProcess {
             if (this.mProductCategoryID > 0){
                 whereClause += " and p.m_product_category_id =" + this.mProductCategoryID;
             }
+            if (this.zLineaProdID > 0){
+                whereClause += " and p.z_lineaprod_id =" + this.zLineaProdID;
+            }
+            if (this.zFamiliaProdID > 0){
+                whereClause += " and p.z_familiaprod_id =" + this.zFamiliaProdID;
+            }
+            if (this.zSubfamiliaProdID > 0){
+                whereClause += " and p.z_subfamiliaprod_id =" + this.zSubfamiliaProdID;
+            }
 
             String havingClause = "";
             if (this.hideQtyZero){
@@ -165,6 +193,7 @@ public class InventarioStock extends SvrProcess {
 
 
             sql = " select t.ad_client_id, t.ad_org_id, l.m_warehouse_id, t.m_locator_id, " +
+                    "p.z_lineaprod_id, p.z_familiaprod_id, p.z_subfamiliaprod_id, " +
                     "p.m_product_category_id, t.m_product_id, p.c_uom_id, " +
                     this.getAD_User_ID() + "," + fieldStartDate + ", '" + this.endDate + "', '" +
                     ((this.hideQtyZero) ? "Y" : "N") + "', " +
@@ -174,7 +203,7 @@ public class InventarioStock extends SvrProcess {
                     " inner join m_locator l on t.m_locator_id = l.m_locator_id " +
                     " where t.ad_client_id =" + this.adClientID +
                     " and t.ad_org_id =" + this.adOrgID + whereClause +
-                    " group by 1, 2, 3, 4, 5, 6, 7 " + havingClause;
+                    " group by 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 " + havingClause;
 
             DB.executeUpdateEx(action + sql, null);
         }
