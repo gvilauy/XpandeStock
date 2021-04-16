@@ -33,7 +33,7 @@ public class X_Z_StkTransaction extends PO implements I_Z_StkTransaction, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210415L;
+	private static final long serialVersionUID = 20210416L;
 
     /** Standard Constructor */
     public X_Z_StkTransaction (Properties ctx, int Z_StkTransaction_ID, String trxName)
@@ -286,6 +286,29 @@ public class X_Z_StkTransaction extends PO implements I_Z_StkTransaction, I_Pers
 	public String getDocumentNo () 
 	{
 		return (String)get_Value(COLUMNNAME_DocumentNo);
+	}
+
+	/** Set Line ID.
+		@param Line_ID 
+		Transaction line ID (internal)
+	  */
+	public void setLine_ID (int Line_ID)
+	{
+		if (Line_ID < 1) 
+			set_Value (COLUMNNAME_Line_ID, null);
+		else 
+			set_Value (COLUMNNAME_Line_ID, Integer.valueOf(Line_ID));
+	}
+
+	/** Get Line ID.
+		@return Transaction line ID (internal)
+	  */
+	public int getLine_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_Line_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
 	}
 
 	public I_M_AttributeSetInstance getM_AttributeSetInstance() throws RuntimeException

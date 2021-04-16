@@ -208,6 +208,19 @@ public interface I_Z_StkTransaction
 	  */
 	public boolean isActive();
 
+    /** Column name Line_ID */
+    public static final String COLUMNNAME_Line_ID = "Line_ID";
+
+	/** Set Line ID.
+	  * Transaction line ID (internal)
+	  */
+	public void setLine_ID (int Line_ID);
+
+	/** Get Line ID.
+	  * Transaction line ID (internal)
+	  */
+	public int getLine_ID();
+
     /** Column name M_AttributeSetInstance_ID */
     public static final String COLUMNNAME_M_AttributeSetInstance_ID = "M_AttributeSetInstance_ID";
 
