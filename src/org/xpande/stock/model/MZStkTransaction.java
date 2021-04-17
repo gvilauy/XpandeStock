@@ -53,7 +53,7 @@ public class MZStkTransaction extends X_Z_StkTransaction{
             if (movementDate == null){
                 return "Falta indicar Fecha para Movimiento de Stock";
             }
-            
+
             Timestamp fechaHoy = TimeUtil.trunc(new Timestamp(System.currentTimeMillis()), TimeUtil.TRUNC_DAY);
 
 
