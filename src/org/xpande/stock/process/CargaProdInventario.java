@@ -9,6 +9,7 @@ import org.compiere.process.SvrProcess;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.xpande.core.model.MZDataFiltro;
+import sun.misc.MessageUtils;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -73,6 +74,13 @@ public class CargaProdInventario extends SvrProcess {
 
                 if (dataFiltro.get_ValueAsInt("Z_ProductoSubfamilia_ID") > 0){
                     whereClause += " and prod.z_productosubfamilia_id =" + dataFiltro.get_ValueAsInt("Z_ProductoSubfamilia_ID");
+                }
+
+                if (dataFiltro.isEsProductoBalanza()){
+                    whereClause += " and prod.esproductobalanza ='Y' ";
+                }
+                else{
+                    whereClause += " and prod.esproductobalanza ='N' ";
                 }
 
                 sql = " select count(*) from Z_DataFiltroProd where Z_DataFiltro_ID =" + dataFiltroID;
